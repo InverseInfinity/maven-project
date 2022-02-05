@@ -13,12 +13,12 @@ pipeline {
                 sh '''
                     ./jenkins/build/mvn.sh mvn -B -DskipTests clean package
                     ./jenkins/build/build.sh
-                    '''
+                   '''
             }
             post {
-       	 	    success {
+       	 	success {
             	    archiveArtifacts artifacts: 'java-app/target/*.jar', fingerprint: true
-        	    } 
+        	} 
     	    }
 
         }
@@ -26,30 +26,30 @@ pipeline {
         stage ('Test') {
             steps {
                 sh '''
-			 		./jenkins/test/test.sh mvn test
-		        	'''
+		    ./jenkins/test/test.sh mvn test
+		   '''
             }
             post {
-        	    always {
+        	always {
                     junit 'java-app/target/surefire-reports/*.xml'
-        	    }
+        	}
             }
         }
 
         stage ('Push') {
             steps {
                 sh '''
-	 				./jenkins/push/push.sh
-		       		'''
+		    ./jenkins/push/push.sh
+		   '''
             }
         }
 
         stage ('Deploy') {
-            steps{
+            steps {
                 sh '''
                     ./jenkins/delpoy/deploy.sh
-                    '''
-               }
+                   '''
+            }
         }
     }
 
