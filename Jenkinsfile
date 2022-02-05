@@ -1,7 +1,11 @@
 pipeline {
         agent any
 
-        stages {
+        environment {
+	    PASS = credentials('docker-login')
+	    aws_ip = credentials('aws_ip')
+	}
+	stages {
 
              stage ('Build') {
                  steps{
