@@ -1,0 +1,9 @@
+FROM zenika/alpine-maven:latest
+
+RUN mkdir /java_app
+
+COPY *.jar /java_app/test_app.jar
+
+CMD java -jar /java_app/test_app.jar
+
+
